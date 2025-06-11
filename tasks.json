@@ -1,6 +1,8 @@
 {
-    "build": "go build .",
-    "test": "go test ./...",
-    "hello": "echo Hello, World!"
+    "hello": "echo Hello, World!",
+    "build": [
+      "go mod tidy",
+      "go build ."
+    ]
 }
-  
+
