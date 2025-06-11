@@ -1,19 +1,24 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 	"task-runner/runner"
 )
 
 func main() {
-	if len(os.Args) < 2 {
-		fmt.Println("Usage: go run main.go <task-name>")
+	file_flag := flag.String("file", "tasks.json", "Path to tasks file (default: tasks.json)")
+	flag.Parse()
+
+	args := flag.Args()
+	if len(args) < 1 {
+		fmt.Println("Usage: go run main.go [--file=tasks.json] <task-name>")
 		os.Exit(1)
 	}
-	task_name := os.Args[1]
+	task_name := args[0]
 
-	tasks, err := runner.Load_Tasks("tasks.json")
+	tasks, err := runner.Load_Tasks(*file_flag)
 	if err != nil {
 		fmt.Printf("error loading tasks: %v\n", err)
 		os.Exit(1)
